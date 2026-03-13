@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Harshu</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* ====== RESET ====== */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Lato',sans-serif;overflow-x:hidden;background:#0d0202}
+
+/* ====== PAGE SYSTEM ====== */
+.page{display:none;width:100%;min-height:100vh}
+.page.active{display:block}
+
+/* ====== CONFETTI ====== */
+.cf-piece{
+  position:fixed;top:-15px;pointer-events:none;z-index:99998;
+  animation:cffall linear forwards;
+}
+@keyframes cffall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+
+/* ====== ROAST TOAST ====== */
+#roastToast{
+  position:fixed;top:50%;left:50%;
+  transform:translate(-50%,-50%) scale(0);
+  background:linear-gradient(135deg,#b01818,#6e0a0a);
+  color:#fff;padding:20px 40px;border-radius:50px;
+  font-family:'Dancing Script',cursive;font-size:1.5rem;
+  z-index:999999;pointer-events:none;
+  transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1),opacity 0.3s;
+  opacity:0;text-align:center;max-width:90vw;
+  box-shadow:0 10px 50px rgba(0,0,0,0.6);
+}
+#roastToast.show{transform:translate(-50%,-50%) scale(1);opacity:1}
+
+/* ==========================================
+   PAGE 1 — POPUP
+========================================== */
+#page1{
+  background:radial-gradient(ellipse at 50% 45%, #801010 0%, #3d0808 45%, #0d0202 100%);
+  min-height:100vh;
+  display:none;
+  align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+#page1.active{display:flex}
+
+/* petal rain */
+#petalBox{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.petal{
+  position:absolute;
+  animation:petalfall linear infinite;
+  will-change:transform;
+}
+@keyframes petalfall{
+  0%  {transform:translateY(-60px) rotate(0deg);opacity:0.7}
+  100%{transform:translateY(110vh) rotate(540deg);opacity:0}
+}
+
+/* popup card */
+.pop-card{
+  position:relative;z-index:10;
+  background:rgba(255,255,255,0.055);
+  border:1px solid rgba(255,160,160,0.22);
+  border-radius:30px;
+  padding:54px 40px 50px;
+  text-align:center;
+  max-width:470px;width:90%;
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  box-shadow:0 40px 100px rgba(0,0,0,0.75),inset 0 1px 0 rgba(255,200,200,0.1);
+  animation:cardPop 0.9s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes cardPop{
+  from{transform:scale(0.3) rotate(-10deg);opacity:0}
+  to  {transform:scale(1)   rotate(0deg); opacity:1}
+}
+
+.pop-rose{
+  font-size:3.8rem;display:block;margin-bottom:24px;
+  animation:roseWobble 2.5s ease-in-out infinite;
+}
+@keyframes roseWobble{
+  0%,100%{transform:rotate(-8deg) scale(1)}
+  50%    {transform:rotate( 8deg) scale(1.2)}
+}
+
+.pop-title{
+  font-family:'Dancing Script',cursive;
+  font-size:2.15rem;
+  color:#ffb3b3;
+  line-height:1.45;
+  margin-bottom:34px;
+}
+
+/* BUTTON CONTAINER */
+.btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap; /* Helps on very small screens */
+}
+
+/* YES & NO buttons identical styling */
+#btnYes, #btnNo {
+  display: inline-block;
+  background: linear-gradient(135deg, #c0392b, #8b1a1a);
+  color: #fff;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(192, 57, 43, 0.6);
+  transition: transform 0.2s, box-shadow 0.2s, left 0.12s ease, top 0.12s ease;
+  white-space: nowrap;
+  z-index: 9999;
+}
+
+#btnYes:hover {
+  transform: scale(1.09);
+  box-shadow: 0 15px 46px rgba(192, 57, 43, 0.8);
+}
+
+/* ==========================================
+   PAGE 2 — BIRTHDAY WISH
+========================================== */
+#page2{
+  background:linear-gradient(155deg,#0d0202 0%,#3a0808 35%,#7b1616 65%,#c0392b 100%);
+  min-height:100vh;
+  display:none;
+  flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:50px 24px;
+  position:relative;overflow:hidden;
+}
+#page2.active{display:flex}
+
+#p2glow{
+  position:absolute;width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,100,100,0.1),transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  pointer-events:none;
+  animation:glowpulse 4s ease-in-out infinite;
+}
+@keyframes glowpulse{
+  0%,100%{transform:translate(-50%,-50%) scale(1)}
+  50%    {transform:translate(-50%,-50%) scale(1.4)}
+}
+#p2floats{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.wfloat{position:absolute;animation:wfloatanim ease-in-out infinite;opacity:0.18}
+@keyframes wfloatanim{
+  0%,100%{transform:translateY(0)   rotate(0deg)}
+  50%    {transform:translateY(-28px) rotate(14deg)}
+}
+
+.w-tag{
+  font-family:'Lato',sans-serif;font-weight:300;
+  letter-spacing:7px;font-size:0.68rem;text-transform:uppercase;
+  color:rgba(255,155,155,0.65);margin-bottom:20px;
+  position:relative;z-index:2;
+  animation:fadeup 0.7s 0.1s both;
+}
+.w-cake{
+  font-size:5.5rem;margin-bottom:24px;
+  position:relative;z-index:2;
+  animation:cakebounce 0.9s 0.3s both, cakewobble 3s 1.3s ease-in-out infinite;
+}
+@keyframes cakebounce{from{transform:scale(0) rotate(-20deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+@keyframes cakewobble{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+
+.w-name{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3.2rem,11vw,8rem);
+  color:#fff;line-height:1.05;margin-bottom:16px;
+  text-shadow:0 0 80px rgba(255,100,100,0.5);
+  position:relative;z-index:2;
+  animation:fadeup 0.7s 0.5s both;
+}
+.w-name em{color:#ffb3b3;font-style:italic}
+
+.w-sub{
+  font-family:'Dancing Script',cursive;
+  font-size:clamp(1.3rem,3.5vw,2rem);
+  color:rgba(255,210,210,0.88);margin-bottom:56px;
+  position:relative;z-index:2;
+  animation:fadeup 0.7s 0.75s both;
+}
+.w-next{
+  background:rgba(255,255,255,0.09);
+  border:1px solid rgba(255,180,180,0.38);
+  color:rgba(255,210,210,0.9);
+  padding:18px 54px;border-radius:50px;
+  font-size:0.82rem;font-family:'Lato',sans-serif;
+  letter-spacing:4px;text-transform:uppercase;
+  cursor:pointer;
+  transition:all 0.3s;
+  position:relative;z-index:2;
+  animation:fadeup 0.7s 1s both;
+}
+.w-next:hover{
+  background:rgba(192,57,43,0.38);
+  border-color:rgba(255,150,150,0.65);
+  transform:translateY(-4px);
+  box-shadow:0 14px 44px rgba(192,57,43,0.38);
+}
+
+@keyframes fadeup{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:translateY(0)}}
+
+/* ==========================================
+   PAGE 3 — TIMELINE
+========================================== */
+#page3{
+  background:linear-gradient(180deg,#fff5f5 0%,#fde4e4 55%,#fff0f0 100%);
+  padding:80px 20px 100px;
+}
+
+.sec-head{text-align:center;margin-bottom:72px}
+.sec-label{
+  font-family:'Lato',sans-serif;letter-spacing:6px;font-size:0.67rem;
+  text-transform:uppercase;color:#c0392b;margin-bottom:13px;
+}
+.sec-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.2rem,5vw,3.6rem);color:#3a0808;line-height:1.2;
+}
+.sec-title em{color:#c0392b;font-style:italic}
+
+/* ---- timeline track ---- */
+.tl-wrap{max-width:920px;margin:0 auto;position:relative}
+
+/* the vertical red line */
+.tl-wrap::before{
+  content:'';
+  position:absolute;
+  left:50%;top:0;bottom:0;width:2px;
+  transform:translateX(-50%);
+  background:linear-gradient(
+    180deg,
+    transparent 0%,
+    #e8a0a0 6%,
+    #c0392b 40%,
+    #c0392b 60%,
+    #e8a0a0 94%,
+    transparent 100%
+  );
+}
+
+/* ---- each timeline entry ---- */
+.tl-entry{
+  display:grid;
+  grid-template-columns:1fr 18px 1fr;
+  grid-template-rows:auto;
+  column-gap:30px;
+  margin-bottom:80px;
+  align-items:start;
+  /* scroll reveal */
+  opacity:0;
+  transform:translateY(48px);
+  transition:opacity 0.65s ease,transform 0.65s ease;
+}
+.tl-entry.show{opacity:1;transform:translateY(0)}
+
+/* dot always in the centre column */
+.tl-dot{
+  grid-column:2;
+  grid-row:1;
+  width:18px;height:18px;
+  background:#c0392b;
+  border:3px solid #fff;
+  border-radius:50%;
+  box-shadow:0 0 0 5px rgba(192,57,43,0.22);
+  margin-top:26px;
+  position:relative;z-index:3;
+  justify-self:center;
+}
+
+/* LEFT entry: content in col 1, empty in col 3 */
+.tl-entry.tl-left .tl-content{
+  grid-column:1;
+  grid-row:1;
+  text-align:right;
+}
+.tl-entry.tl-left .tl-content img{margin-left:auto}
+.tl-entry.tl-left .tl-empty{grid-column:3;grid-row:1}
+
+/* RIGHT entry: empty in col 1, content in col 3 */
+.tl-entry.tl-right .tl-empty{grid-column:1;grid-row:1}
+.tl-entry.tl-right .tl-content{
+  grid-column:3;
+  grid-row:1;
+  text-align:left;
+}
+
+/* card inner */
+.tl-date{
+  font-family:'Lato',sans-serif;font-weight:700;
+  letter-spacing:3px;font-size:0.63rem;text-transform:uppercase;
+  color:#c0392b;margin-bottom:8px;
+}
+.tl-ttl{
+  font-family:'Playfair Display',serif;
+  font-size:1.3rem;color:#1a0505;margin-bottom:9px;line-height:1.3;
+}
+.tl-desc{
+  font-family:'Lato',sans-serif;font-size:0.88rem;
+  color:#7a3030;line-height:1.8;font-weight:300;
+  margin-bottom:15px;
+}
+.tl-content img{
+  display:block;
+  width:100%;
+  max-width:270px;
+  height:220px;
+  object-fit:cover;
+  object-position:center top;
+  border-radius:18px;
+  box-shadow:0 12px 40px rgba(192,57,43,0.24);
+  transition:transform 0.4s ease,box-shadow 0.4s ease;
+}
+.tl-content img:hover{
+  transform:scale(1.05) rotate(1.5deg);
+  box-shadow:0 24px 70px rgba(192,57,43,0.42);
+}
+
+/* CTA button below timeline */
+.cta-wrap{display:flex;justify-content:center;margin-top:64px}
+.cta-btn{
+  background:linear-gradient(135deg,#c0392b,#8b1a1a);
+  color:#fff;border:none;
+  padding:20px 56px;border-radius:50px;
+  font-family:'Dancing Script',cursive;font-size:1.2rem;font-weight:700;
+  cursor:pointer;
+  box-shadow:0 8px 32px rgba(192,57,43,0.48);
+  transition:transform 0.25s,box-shadow 0.25s;
+}
+.cta-btn:hover{transform:translateY(-5px) scale(1.04);box-shadow:0 20px 56px rgba(192,57,43,0.68)}
+
+/* ==========================================
+   PAGE 4 — LOVE LETTER
+========================================== */
+#page4{
+  background:linear-gradient(160deg,#fff8f5 0%,#fde8e8 100%);
+  padding:80px 20px 0;
+}
+
+.lt-inner{max-width:740px;margin:0 auto}
+.lt-label{
+  font-family:'Lato',sans-serif;letter-spacing:5px;font-size:0.67rem;
+  text-transform:uppercase;color:#c0392b;text-align:center;margin-bottom:13px;
+}
+.lt-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,5vw,3.4rem);
+  color:#3a0808;text-align:center;margin-bottom:50px;line-height:1.2;
+}
+.lt-card{
+  background:#fff;border-radius:24px;
+  padding:60px 54px;
+  box-shadow:0 20px 80px rgba(192,57,43,0.09),0 4px 20px rgba(0,0,0,0.05);
+  border-top:4px solid #c0392b;
+  position:relative;
+  animation:fadeup 0.8s 0.15s both;
+}
+.lt-card::before{
+  content:'“';
+  font-family:'Playfair Display',serif;
+  font-size:9rem;color:#fce4ec;
+  position:absolute;top:-28px;left:26px;
+  line-height:1;pointer-events:none;
+}
+.lt-body{
+  font-family:'Lato',sans-serif;
+  font-size:1.04rem;line-height:1.95;
+  color:#3a1a1a;font-weight:300;
+}
+.lt-body p{margin-bottom:22px}
+.lt-body em{color:#c0392b;font-style:italic;font-weight:400}
+.lt-sign{
+  font-family:'Dancing Script',cursive;
+  font-size:2.3rem;color:#c0392b;
+  text-align:right;margin-top:30px;
+}
+.lt-icons{
+  display:flex;gap:16px;justify-content:center;
+  margin-top:28px;font-size:1.7rem;
+}
+
+/* footer */
+.site-footer{
+  background:#060101;padding:64px 20px;
+  text-align:center;margin-top:60px;
+}
+.ft-name{
+  font-family:'Dancing Script',cursive;
+  font-size:3.2rem;color:#c0392b;margin-bottom:12px;
+}
+.ft-hearts{font-size:1.7rem;margin:18px 0;animation:roseWobble 3s ease-in-out infinite}
+.ft-msg{
+  font-family:'Lato',sans-serif;font-weight:300;
+  color:rgba(255,120,120,0.35);font-size:0.75rem;letter-spacing:4px;
+}
+
+/* ==========================================
+   RESPONSIVE — MOBILE
+========================================== */
+@media(max-width:620px){
+  /* timeline becomes single column on mobile */
+  .tl-wrap::before{left:18px;transform:none}
+  .tl-entry{
+    display:block;
+    padding-left:46px;
+    padding-bottom:10px;
+  }
+  .tl-dot{
+    position:absolute;
+    left:9px;top:18px;
+    transform:none;
+    width:16px;height:16px;
+  }
+  .tl-entry.tl-left .tl-content,
+  .tl-entry.tl-right .tl-content{
+    width:100%;text-align:left;
+  }
+  .tl-entry.tl-left .tl-content img{margin-left:0}
+  .tl-empty{display:none}
+  .pop-card{padding:42px 28px 40px}
+  .pop-title{font-size:1.85rem}
+  .lt-card{padding:42px 26px}
+}
+</style>
+</head>
+<body>
+
+<div id="roastToast">😤 Bitch you seriously tried clicking No?!</div>
+
+<div id="page1" class="page active">
+  <div id="petalBox"></div>
+
+  <div class="pop-card">
+    <span class="pop-rose">🌹</span>
+    <div class="pop-title">
+      Harshu,<br>
+      something very special<br>
+      was made just for you ✨
+    </div>
+    
+    <div class="btn-container">
+      <button id="btnYes" onclick="clickYes()">Yes, of course! 💕</button>
+      <button id="btnNo"
+        onmouseover="noEscape(event)"
+        ontouchstart="noEscape(event)"
+        onclick="noClicked()">No thanks</button>
+    </div>
+  </div>
+</div>
+
+<div id="page2" class="page">
+  <div id="p2glow"></div>
+  <div id="p2floats"></div>
+
+  <p class="w-tag">✨ Today is your day ✨</p>
+  <div class="w-cake">🎂</div>
+  <h1 class="w-name">Happy Birthday,<br><em>Harshu!</em></h1>
+  <p class="w-sub">The world became more beautiful on March 15, 2003 🌹</p>
+  <button class="w-next" onclick="goTimeline()">See Our Story Together &rarr;</button>
+</div>
+
+<div id="page3" class="page">
+  <div class="sec-head">
+    <p class="sec-label">&#128247; our story, every chapter</p>
+    <h2 class="sec-title">From Then to <em>Now</em></h2>
+  </div>
+
+  <div class="tl-wrap" id="tlWrap">
+
+    <div class="tl-entry tl-left">
+      <div class="tl-content">
+        <div class="tl-date">March 15, 2003</div>
+        <h3 class="tl-ttl">The World Got Its Best Gift &#127873;</h3>
+        <p class="tl-desc">Somewhere in this world, a little girl was born and she had no idea how many lives she'd one day light up. The very beginning of you, Harshu. Look how tiny and precious! &#129402;</p>
+        
+        <img src="https://i.postimg.cc/QMzPwPBM/Snapchat-1126605442.jpg" alt="Baby Harshu" style="width: 100%; height: 350px; object-fit: contain !important; background-color: #000000 !important; border-radius: 15px; margin-top: 15px; display: block;">
+        
+      </div>
+      <div class="tl-dot"></div>
+      <div class="tl-empty"></div>
+    </div>
+    <div class="tl-entry tl-right">
+      <div class="tl-empty"></div>
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-date">October 26, 2019</div>
+        <h3 class="tl-ttl">The Night Everything Changed &#127769;</h3>
+        <p class="tl-desc">After Osmosis, we took our very first photo together — and then we talked all night. Neither of us slept. Neither of us wanted to. From that night, there was no going back. &#127801;</p>
+        
+        <img src="https://i.postimg.cc/4NBTwW1m/Whats-App-Image-2026-03-06-at-10-27-50-PM-(1).jpg" alt="First photo together" style="width: 100%; height: 350px; object-fit: contain !important; background-color: #000000 !important; border-radius: 15px; margin-top: 15px; display: block;">
+        
+      </div>
+    </div>
+
+    <div class="tl-entry tl-left" style="margin-top: -60px; margin-bottom: 20px;">
+      <div class="tl-empty"></div>
+      <div class="tl-dot" style="margin-top: 15px;"></div>
+      <div class="tl-content" style="border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); padding-top: 15px;">
+        <div class="tl-date">March 15, 2020</div>
+        <h3 class="tl-ttl">Your First Birthday Together &#127874;</h3>
+        <p class="tl-desc">The very first birthday we celebrated together. It felt so right — like this was already a tradition we'd keep forever. You were glowing, as always.</p>
+        
+        <div style="text-align: right; margin-top: -10px; margin-bottom: 5px;">
+            <span style="font-size: 1.2rem; color: #E91E63;">&#127800;</span>
+        </div>
+
+        <img src="https://i.postimg.cc/7LCGqGLw/Whats-App-Image-2026-03-06-at-10-27-50-PM.jpg" alt="Birthday March 2020" style="width: 100%; height: auto; border-radius: 15px; display: block; object-fit: cover;">
+        
+      </div>
+    </div>
+
+    <div class="tl-entry tl-right">
+      <div class="tl-empty"></div>
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-date">2020 &mdash; 2021</div>
+        <h3 class="tl-ttl">The COVID Phase &#127783;&#65039;</h3>
+        <p class="tl-desc">The world stopped. But we didn't. Stolen voice notes, late-night calls — we held on through the strangest chapter of our lives. Even in all that chaos, you were the calm thing I held onto.</p>
+        
+        <img src="https://i.postimg.cc/QxBRkjV4/Whats-App-Image-2026-03-12-at-2-53-59-PM.jpg" alt="Covid phase" style="width: 100%; height: 350px; object-fit: contain !important; background-color: #000000 !important; border-radius: 15px; margin-top: 15px; display: block;">
+        
+      </div>
+    </div>
+
+    <div class="tl-entry tl-left">
+      <div class="tl-content">
+        <div class="tl-date">January 23, 2023</div>
+        <h3 class="tl-ttl">Traditional Day &#10024;</h3>
+        <p class="tl-desc">You in that saree. Me in my kurta. Both looking so beautiful that day — but you? You were something else entirely. One of my absolute favourite photos of us. So effortlessly, perfectly us.</p>
+        
+        <img src="https://i.postimg.cc/VvnF2d3n/photo-6231292729934066597-y.jpg" alt="Traditional Day Jan 2023" style="width: 100%; height: auto; border-radius: 15px; border: 2px solid #000000; display: block; margin-top: 15px; object-fit: cover;">
+        
+      </div>
+      <div class="tl-dot"></div>
+      <div class="tl-empty"></div>
+    </div>
+
+    <div class="tl-entry tl-right">
+      <div class="tl-empty"></div>
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-date">February 2, 2023</div>
+        <h3 class="tl-ttl">Annual Fest Night &#127881;</h3>
+        <p class="tl-desc">Food on one plate. Evening lights. Your laughter in the crowd. One of the best evenings of my life — right beside you. I don't think I've ever felt more at home anywhere else. &#128149;</p>
+        
+        <img src="https://i.postimg.cc/WbVKTvX4/photo-6260325952940782971-y.jpg" alt="Annual Fest Feb 2023" style="width: 100%; height: auto; border-radius: 15px; background-color: #000000; display: block; margin-top: 15px; object-fit: cover;">
+        
+      </div>
+    </div>
+
+    <div class="tl-entry tl-left">
+      <div class="tl-content">
+        <div class="tl-date">February 27, 2023</div>
+        <h3 class="tl-ttl">Silvassa Nights & Our T-Shirt &#127774;</h3>
+        <p class="tl-desc">Our industrial visit to Silvassa turned into one of the best nights we’ve ever shared. We stayed up talking for hours, completely lost in conversation. When you didn't have a t-shirt to sleep in, I gave you mine. Wearing that exact same t-shirt the very next day gave me the best feeling in the world. This photo might be a little weird, but it captured a perfectly unscripted moment that became one of my absolute favorite memories of us.</p>
+        
+        <img src="https://i.postimg.cc/CxRjp5BD/IMG-20230228-203741-462.jpg" alt="Silvassa IV Feb 2023" style="width: 100%; height: auto; object-fit: cover; background-color: #000000; border-radius: 15px; border: 2px solid #000000; display: block; margin-top: 15px;">
+        
+      </div>
+      <div class="tl-dot"></div>
+      <div class="tl-empty"></div>
+    </div>
+    
+    <div class="tl-entry tl-right">
+      <div class="tl-empty"></div>
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-date">March 3, 2023</div>
+        <h3 class="tl-ttl">Siddhivinayak & Dadar Beach &#127754;</h3>
+        <p class="tl-desc">Our very first time visiting the Siddhivinayak Temple together. Afterwards, we headed down to Dadar beach and just sat by the water for hours. We kept talking about everything and nothing, but honestly, the whole world faded away and time just slipped by while I was looking into your eyes. It was such a peaceful, perfect day.</p>
+        
+        <img src="https://i.postimg.cc/qRQTWRX7/photo-6057789945394869397-y.jpg" alt="Siddhivinayak and Dadar Beach March 2023" style="width: 100%; height: auto; object-fit: cover; background-color: #000000; border-radius: 15px; border: 2px solid #000000; display: block; margin-top: 15px;">
+        
+      </div>
+    </div>
+    
+    
+    <div class="tl-entry tl-left">
+      <div class="tl-content">
+        <div class="tl-date">March 18, 2023</div>
+        <h3 class="tl-ttl">The Perfect Candid &#128248;</h3>
+        <p class="tl-desc">We had an event at college, and out of nowhere, we got one of the absolute best pictures we've ever taken together. It's such a pure, natural candid, and honestly, it's the one I love the most. There was no posing, just us being completely ourselves, caught in a genuine moment of happiness. Looking at this picture always brings back the exact energy, laughter, and pure joy of that day.</p>
+        
+        <img src="https://i.postimg.cc/d0XhfJv6/20230423-130109.jpg" alt="College Event Candid March 2023" style="width: 100%; height: auto; object-fit: cover; background-color: #000000; border-radius: 15px; border: 2px solid #000000; display: block; margin-top: 15px;">
+        
+      </div>
+      <div class="tl-dot"></div>
+      <div class="tl-empty"></div>
+    </div>
+    
+    <div class="tl-entry tl-right">
+      <div class="tl-empty"></div>
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-date">June 6, 2023</div>
+        <h3 class="tl-ttl">ISKCON, Sunsets & Chole Bhature &#127749;</h3>
+        <p class="tl-desc">One of the absolute best days we've ever shared. We started with a peaceful visit to the ISKCON temple, and then treated ourselves to some of the most amazing chole bhature. To top it all off, we ended the evening watching a gorgeous sunset together at Juhu Beach. Good food, beautiful views, and the perfect company—what more could I ever ask for?</p>
+        
+        <img src="https://i.postimg.cc/vTXMpv9k/photo-6052867479081957153-y.jpg" alt="ISKCON and Juhu Beach June 2023" style="width: 100%; height: auto; object-fit: cover; background-color: #000000; border-radius: 15px; border: 2px solid #000000; display: block; margin-top: 15px;">
+        
+      </div>
+    </div>
+
+    <div class="tl-entry tl-left">
+      <div class="tl-content">
+        <div class="tl-date">November 9, 2023</div>
+        <h3 class="tl-ttl">Our Last Perfect Day &#127747;</h3>
+        <p class="tl-desc">This day holds such a bittersweet place in my heart. It was perhaps the last truly happy time we spent together before things broke apart and the distance grew between us. We wandered around CST, took blessings from our favorite Bappa at Siddhivinayak, and ended up at Marine Drive. Sitting there, eating the OG K. Rustom's ice cream and looking out at the water, we shared some of the best and loudest laughter. Even though we had our fights and stopped talking after this, I will always hold onto the pure joy of this day.</p>
+        
+        <img src="https://i.postimg.cc/TYRngYPm/photo-6226408737938193169-y.jpg" alt="CST and Marine Drive Nov 2023" style="width: 100%; height: auto; object-fit: cover; background-color: #000000; border-radius: 15px; border: 2px solid #000000; display: block; margin-top: 15px;">
+        
+      </div>
+      <div class="tl-dot"></div>
+      <div class="tl-empty"></div>
+    </div>
+
+    <div class="tl-entry tl-right">
+      <div class="tl-empty"></div>
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-date">September 2025</div>
+        <h3 class="tl-ttl">The Call That Brought Us Back &#128150;</h3>
+        <p class="tl-desc">Then came that one random Sunday afternoon. My phone rang, and hearing you cry on the other end broke my heart—but being the one you reached out to, being able to be there for you, meant absolutely everything to me. Since that call, we haven't stopped talking. We found our way back to each other, and this time, I promise we are keeping this bond forever. We are going to nurture it and turn it into the most beautiful thing we could ever have. No more looking back—just us, together, always.</p>
+        
+      </div>
+    </div>
+  </div><div class="cta-wrap">
+    <button class="cta-btn" onclick="goLetter()">Read the Letter I Wrote You &#128140;</button>
+  </div>
+</div>
+
+<div id="page4" class="page">
+  <div class="lt-inner">
+    <p class="lt-label">&#128140; from the heart</p>
+    <h2 class="lt-title">Dear Harshu,</h2>
+    <div class="lt-card">
+      <div class="lt-body">
+        <p>You know, I've been trying to find the right words for a while now — and honestly, nothing feels enough. How do you describe someone who just... <em>fits</em>? Someone whose laugh is the best sound in any room, whose presence makes everything feel lighter, more real, more alive?</p>
+        <p>I remember that night after Osmosis in October 2019 — the night we <em>actually talked</em>. Like really talked. I don't think either of us knew then that we were starting something that would become one of the most important parts of our lives. From that night, there was no going back. And I'm so, so glad there wasn't.</p>
+        <p>You've seen me through everything — the loud days and the quiet ones, the stupid arguments and the late-night conversations that made no sense and complete sense at the same time. You've been <em>my person</em>. My favourite person. And on your birthday, I just want you to know — I see you. The full you. And she's incredible.</p>
+        <p>You love beaches and flowers and F1 and your Konkan village and pandas. You love food and laughter and your family, and you give love in the most effortless, genuine way. The world is genuinely better because you're in it, Harshu.</p>
+        <p>I could write a thousand pages about our memories and still not get it all down. But today is yours — I hope it feels as warm and full of joy as you make every day feel for everyone lucky enough to have you. I'm lucky to be one of them.</p>
+        <p>Happy Birthday. This one's from me to you — with every bit of warmth I have. &#127801;</p>
+      </div>
+      <div class="lt-sign">&mdash; Tejas &#128149;</div>
+      <div class="lt-icons">&#127801; &#127754; &#128060; &#127950; &#127800;</div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="ft-name">Harshu &#127801;</div>
+    <div class="ft-hearts">&#10084;&#65039; &#127801; &#10084;&#65039;</div>
+    <div class="ft-msg">MADE WITH LOVE &middot; BY TEJAS &middot; ALWAYS &amp; FOREVER</div>
+  </footer>
+</div>
+
+<script>
+// ── PETAL RAIN on popup ──
+(function spawnPetals() {
+  var box = document.getElementById('petalBox');
+  var em  = ['🌹','🌸','💕','❤️','🍃','✨','🥀'];
+  for (var i = 0; i < 45; i++) {
+    var p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = em[i % em.length];
+    p.style.left     = (Math.random() * 100) + '%';
+    p.style.fontSize = (1.1 + Math.random() * 1.5) + 'rem';
+    p.style.animationDuration = (5 + Math.random() * 8) + 's';
+    p.style.animationDelay   = (Math.random() * 10) + 's';
+    p.style.opacity = 0.12 + Math.random() * 0.35;
+    box.appendChild(p);
+  }
+})();
+
+var noBtn = document.getElementById('btnNo');
+
+function noEscape(e) {
+  // The moment the user tries to hover/touch, switch the button to fixed position so it can fly around
+  if (noBtn.style.position !== 'fixed') {
+    noBtn.style.position = 'fixed';
+  }
+  
+  var margin = 18;
+  var bw = noBtn.offsetWidth  || 115;
+  var bh = noBtn.offsetHeight || 50;
+  var vw = window.innerWidth;
+  var vh = window.innerHeight;
+  var nx, ny, tries = 0, cx = vw / 2, cy = vh / 2;
+  
+  do {
+    nx = margin + Math.random() * (vw - bw - margin * 2);
+    ny = margin + Math.random() * (vh - bh - margin * 2);
+    tries++;
+  } while (tries < 30 && Math.abs(nx - cx) < 220 && Math.abs(ny - cy) < 160);
+  
+  noBtn.style.left = nx + 'px';
+  noBtn.style.top  = ny + 'px';
+  
+  if (e && e.cancelable) e.preventDefault();
+}
+
+function noClicked() {
+  var msgs = [
+    '😤 Bitch, you seriously tried clicking No?!',
+    '🙄 That option literally does not exist for you.',
+    '💀 The absolute audacity... click YES already!',
+    '🚫 No is NOT in your vocabulary today babe!',
+    '😂 Nice try bestie. NOW CLICK YES 💕',
+    '🥹 Stop playing around and just click Yes!'
+  ];
+  var toast = document.getElementById('roastToast');
+  toast.textContent = msgs[Math.floor(Math.random() * msgs.length)];
+  toast.classList.add('show');
+  setTimeout(function() { toast.classList.remove('show'); }, 2600);
+  noEscape(null);
+}
+
+// ── CONFETTI ──
+function confettiBoom() {
+  var colors = ['#c0392b','#e74c3c','#ffb3b3','#d4a847','#ff8fa3','#ffffff','#fde4e4','#ff6b6b'];
+  for (var i = 0; i < 160; i++) {
+    (function(delay) {
+      setTimeout(function() {
+        var c = document.createElement('div');
+        c.className = 'cf-piece';
+        c.style.left             = (Math.random() * 100) + 'vw';
+        c.style.width            = (6 + Math.random() * 9) + 'px';
+        c.style.height           = (6 + Math.random() * 9) + 'px';
+        c.style.background       = colors[Math.floor(Math.random() * colors.length)];
+        c.style.borderRadius     = Math.random() > 0.5 ? '50%' : '2px';
+        c.style.animationDuration = (2.5 + Math.random() * 3.5) + 's';
+        c.style.animationDelay   = (Math.random() * 0.5) + 's';
+        document.body.appendChild(c);
+        setTimeout(function() { if (c.parentNode) c.parentNode.removeChild(c); }, 6500);
+      }, delay);
+    })(i * 15);
+  }
+}
+
+// ── PAGE SWITCH ──
+function switchTo(pageId) {
+  var pages = document.querySelectorAll('.page');
+  for (var i = 0; i < pages.length; i++) {
+    pages[i].classList.remove('active');
+  }
+  document.getElementById(pageId).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ── YES CLICK ──
+function clickYes() {
+  confettiBoom();
+  noBtn.style.display = 'none';
+  setTimeout(function() {
+    switchTo('page2');
+    spawnP2Floats();
+  }, 500);
+}
+
+// ── SPAWN FLOATING EMOJIS ON WISH PAGE ──
+function spawnP2Floats() {
+  var box = document.getElementById('p2floats');
+  box.innerHTML = '';
+  var em = ['🌹','🌸','💕','✨','🎂','🎉','🐼','🏎️','🌊','❤️'];
+  for (var i = 0; i < 28; i++) {
+    var el = document.createElement('div');
+    el.className = 'wfloat';
+    el.textContent = em[i % em.length];
+    el.style.left   = (Math.random() * 100) + '%';
+    el.style.top    = (Math.random() * 100) + '%';
+    el.style.fontSize = (1.4 + Math.random() * 2) + 'rem';
+    el.style.animationDuration = (6 + Math.random() * 9) + 's';
+    el.style.animationDelay   = (Math.random() * 6) + 's';
+    box.appendChild(el);
+  }
+}
+
+// ── GO TO TIMELINE ──
+function goTimeline() {
+  switchTo('page3');
+  setTimeout(initTimelineReveal, 120);
+}
+
+// ── GO TO LETTER ──
+function goLetter() {
+  switchTo('page4');
+}
+
+// ── TIMELINE SCROLL REVEAL ──
+function initTimelineReveal() {
+  var entries = document.querySelectorAll('.tl-entry');
+  if (!('IntersectionObserver' in window)) {
+    // fallback: show all immediately
+    for (var i = 0; i < entries.length; i++) entries[i].classList.add('show');
+    return;
+  }
+  var obs = new IntersectionObserver(function(records) {
+    records.forEach(function(r) {
+      if (r.isIntersecting) {
+        r.target.classList.add('show');
+        obs.unobserve(r.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  entries.forEach(function(entry, idx) {
+    if (idx < 2) {
+      // first two visible immediately
+      entry.classList.add('show');
+    } else {
+      obs.observe(entry);
+    }
+  });
+}
+</script>
+</body>
+</html>
